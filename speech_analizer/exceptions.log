@@ -1,0 +1,98 @@
+10548-2020-08-29 14:14:06,760-Exception occurred
+Traceback (most recent call last):
+  File "/home/maniac/speech-analizer/speech_analizer/run.py", line 38, in voice_analize
+    response = parse_file(path_to_file)
+  File "/home/maniac/speech-analizer/speech_analizer/run.py", line 27, in parse_file
+    response = client.recognize(path_to_file, audio_config)
+  File "/home/maniac/.local/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/client_stt.py", line 118, in recognize
+    buffer = get_buffer(source)
+  File "/home/maniac/.local/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/helper_stt.py", line 72, in get_buffer
+    raise ValueError("Incorrect source parameters: must be path to file or io.BufferedReader")
+ValueError: Incorrect source parameters: must be path to file or io.BufferedReader
+12235-2020-08-29 15:10:28,923-Exception occurred
+Traceback (most recent call last):
+  File "/home/maniac/speech-analizer/speech_analizer/run.py", line 38, in voice_analize
+    response = parse_file(path_to_file)
+  File "/home/maniac/speech-analizer/speech_analizer/run.py", line 27, in parse_file
+    response = client.recognize(path_to_file, audio_config)
+  File "/home/maniac/.local/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/client_stt.py", line 118, in recognize
+    buffer = get_buffer(source)
+  File "/home/maniac/.local/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/helper_stt.py", line 72, in get_buffer
+    raise ValueError("Incorrect source parameters: must be path to file or io.BufferedReader")
+ValueError: Incorrect source parameters: must be path to file or io.BufferedReader
+16714-2020-08-29 19:15:59,919-Ошибка при записи в лог-файл
+Traceback (most recent call last):
+  File "/home/maniac/speech-analizer/speech_analizer/run.py", line 126, in voice_analize
+    transcript=transcript,
+  File "/home/maniac/speech-analizer/speech_analizer/run.py", line 68, in write_to_logfile
+    if not os.path.exists():
+TypeError: exists() missing 1 required positional argument: 'path'
+18572-2020-08-29 20:38:36,098-Exception occurred
+Traceback (most recent call last):
+  File "/home/maniac/speech-analizer/speech_analizer/run.py", line 119, in voice_analize
+    response = parse_file(path_to_file)
+  File "/home/maniac/speech-analizer/speech_analizer/run.py", line 34, in parse_file
+    response = client.recognize(path_to_file, audio_config)
+  File "/home/maniac/.local/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/client_stt.py", line 118, in recognize
+    buffer = get_buffer(source)
+  File "/home/maniac/.local/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/helper_stt.py", line 72, in get_buffer
+    raise ValueError("Incorrect source parameters: must be path to file or io.BufferedReader")
+ValueError: Incorrect source parameters: must be path to file or io.BufferedReader
+18718-2020-08-29 20:45:35,603-Ошибка при записи в лог-файл
+Traceback (most recent call last):
+  File "/home/maniac/speech-analizer/speech_analizer/run.py", line 173, in voice_analize
+    transcript=transcript,
+  File "/home/maniac/speech-analizer/speech_analizer/run.py", line 103, in write_to_database
+    password=password
+  File "/usr/lib/python3/dist-packages/psycopg2/__init__.py", line 127, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: FATAL:  password authentication failed for user "mania"
+FATAL:  password authentication failed for user "mania"
+
+19322-2020-08-29 21:10:16,975-Exception occurred
+Traceback (most recent call last):
+  File "/home/maniac/speech-analizer/speech_analizer/analize.py", line 117, in voice_analize
+    response = parse_file(path_to_file)
+  File "/home/maniac/speech-analizer/speech_analizer/analize.py", line 33, in parse_file
+    response = client.recognize(path_to_file, audio_config)
+  File "/home/maniac/.local/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/client_stt.py", line 118, in recognize
+    buffer = get_buffer(source)
+  File "/home/maniac/.local/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/helper_stt.py", line 72, in get_buffer
+    raise ValueError("Incorrect source parameters: must be path to file or io.BufferedReader")
+ValueError: Incorrect source parameters: must be path to file or io.BufferedReader
+19357-2020-08-29 21:11:40,184-Exception occurred
+Traceback (most recent call last):
+  File "/home/maniac/speech-analizer/speech_analizer/analize.py", line 117, in voice_analize
+    response = parse_file(path_to_file)
+  File "/home/maniac/speech-analizer/speech_analizer/analize.py", line 33, in parse_file
+    response = client.recognize(path_to_file, audio_config)
+  File "/home/maniac/.local/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/client_stt.py", line 118, in recognize
+    buffer = get_buffer(source)
+  File "/home/maniac/.local/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/helper_stt.py", line 72, in get_buffer
+    raise ValueError("Incorrect source parameters: must be path to file or io.BufferedReader")
+ValueError: Incorrect source parameters: must be path to file or io.BufferedReader
+19596-2020-08-29 21:21:00,361-Ошибка при записи в лог-файл
+Traceback (most recent call last):
+  File "/home/maniac/speech-analizer/speech_analizer/analize.py", line 173, in voice_analize
+    transcript=transcript,
+  File "/home/maniac/speech-analizer/speech_analizer/analize.py", line 108, in write_to_database
+    (date, time, result_name, result, phone, length, transcript))
+psycopg2.ProgrammingError: can't adapt type 'UUID'
+19679-2020-08-29 21:25:40,772-Ошибка при записи в лог-файл
+Traceback (most recent call last):
+  File "/home/maniac/speech-analizer/speech_analizer/analize.py", line 173, in voice_analize
+    transcript=transcript,
+  File "/home/maniac/speech-analizer/speech_analizer/analize.py", line 108, in write_to_database
+    (date, time, result_name, result, phone, length, transcript))
+psycopg2.ProgrammingError: can't adapt type 'UUID'
+21619-2020-08-29 22:52:33,461-Exception occurred
+Traceback (most recent call last):
+  File "analize.py", line 118, in voice_analize
+    response = parse_file(path_to_file)
+  File "analize.py", line 33, in parse_file
+    response = client.recognize(path_to_file, audio_config)
+  File "/home/maniac/speech-analizer/.venv/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/client_stt.py", line 118, in recognize
+    buffer = get_buffer(source)
+  File "/home/maniac/speech-analizer/.venv/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/helper_stt.py", line 72, in get_buffer
+    raise ValueError("Incorrect source parameters: must be path to file or io.BufferedReader")
+ValueError: Incorrect source parameters: must be path to file or io.BufferedReader
