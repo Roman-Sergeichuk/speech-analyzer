@@ -173,3 +173,5 @@ def response_analysis(path_to_file, phone, record_to_db, stage, reference_words)
                     print('Удаление аудиофайла...')
                     os.remove(path_to_file)
                     print('Аудиофайл успешно удален')
+        else:
+            print('Не удалось распознать ответ')
