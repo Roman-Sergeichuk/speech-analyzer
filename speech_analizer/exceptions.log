@@ -96,3 +96,25 @@ Traceback (most recent call last):
   File "/home/maniac/speech-analizer/.venv/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/helper_stt.py", line 72, in get_buffer
     raise ValueError("Incorrect source parameters: must be path to file or io.BufferedReader")
 ValueError: Incorrect source parameters: must be path to file or io.BufferedReader
+4348-2020-08-30 17:41:53,845-Exception occurred
+Traceback (most recent call last):
+  File "/home/maniac/speech-analizer/speech_analizer/src/analysis.py", line 109, in response_analisis
+    response = parse_file(path_to_file)
+  File "/home/maniac/speech-analizer/speech_analizer/src/analysis.py", line 32, in parse_file
+    response = client.recognize(path_to_file, audio_config)
+  File "/home/maniac/.local/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/client_stt.py", line 118, in recognize
+    buffer = get_buffer(source)
+  File "/home/maniac/.local/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/helper_stt.py", line 72, in get_buffer
+    raise ValueError("Incorrect source parameters: must be path to file or io.BufferedReader")
+ValueError: Incorrect source parameters: must be path to file or io.BufferedReader
+4442-2020-08-30 17:44:34,847-Exception occurred
+Traceback (most recent call last):
+  File "/home/maniac/speech-analizer/speech_analizer/src/analysis.py", line 109, in response_analisis
+    response = parse_file(path_to_file)
+  File "/home/maniac/speech-analizer/speech_analizer/src/analysis.py", line 32, in parse_file
+    response = client.recognize(path_to_file, audio_config)
+  File "/home/maniac/.local/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/client_stt.py", line 118, in recognize
+    buffer = get_buffer(source)
+  File "/home/maniac/.local/lib/python3.6/site-packages/tinkoff_voicekit_client/STT/helper_stt.py", line 72, in get_buffer
+    raise ValueError("Incorrect source parameters: must be path to file or io.BufferedReader")
+ValueError: Incorrect source parameters: must be path to file or io.BufferedReader

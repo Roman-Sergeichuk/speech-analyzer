@@ -6,8 +6,6 @@ import logging
 import uuid
 
 
-logging.basicConfig(filename='exceptions.log', filemode='a', format='%(process)d-%(asctime)s-%(message)s')
-
 REFERENCE_WORDS = {
     'answerphone': ['автоответчик', 'сигнала'],
     'human': ['да', 'алло', 'говорите', 'слушаю'],
@@ -19,7 +17,7 @@ REFERENCE_WORDS = {
 def parse_file(path_to_file):
 
     # Enter your secret-key and api-key
-    API_KEY = "your_api_key"
+    API_KEY = "your_api-key"
     SECRET_KEY = "your_secret_key"
 
     client = ClientSTT(API_KEY, SECRET_KEY)
@@ -45,10 +43,11 @@ def get_response_details(response):
         if transcript:
             words_list = transcript.split(' ')
             break
-    return {'transcript': transcript,
-            'length': length,
-            'words_list': words_list,
-            }
+    return {
+        'transcript': transcript,
+        'length': length,
+        'words_list': words_list,
+    }
 
 
 def match_words(recognized_words, result_0_words, result_1_words):
@@ -70,8 +69,7 @@ def write_to_logfile(
         result,
         phone,
         length,
-        transcript
-):
+        transcript):
     if not os.path.exists('results.log'):
         with open('results.log', 'w') as logfile:
             logfile.write(
@@ -94,49 +92,38 @@ def write_to_database(
         result,
         phone,
         length,
-        transcript,
-):
-    conn = psycopg2.connect(
-        host=host,
-        user=user_name,
-        dbname=db_name,
-        password=password
-    )
+        transcript):
+    conn = psycopg2.connect(host=host, user=user_name, dbname=db_name, password=password)
     cursor = conn.cursor()
     cursor.execute(
         'insert into recordings (date, time, name, result, phone, length, transcript) '
         'VALUES (%s, %s, %s, %s, %s, %s, %s)',
-        (date, time, result_name, result, phone, length, transcript))
+        (date, time, result_name, result, phone, length, transcript)
+    )
     conn.commit()
 
 
-def voice_analize(path_to_file, phone, record_to_db, stage, reference_words):
+def response_analysis(path_to_file, phone, record_to_db, stage, reference_words):
     logging.basicConfig(filename='exceptions.log', filemode='a', format='%(process)d-%(asctime)s-%(message)s')
-    result = ''
-    length = ''
-    transcript = ''
     try:
         response = parse_file(path_to_file)
     except Exception as e:
         print('Ошибка при анализе аудиофайла')
         logging.error('Exception occurred', exc_info=True,)
     else:
+        result = ''
+        answer = get_response_details(response)
+        transcript = answer['transcript']
+        length = answer['length']
+        recognized_words = answer['words_list']
+        answerphone_words = reference_words['answerphone']
+        human_words = reference_words['human']
+        positive_words = reference_words['positive']
+        negative_words = reference_words['negative']
         if stage == 1:
-            answer = get_response_details(response)
-            transcript = answer['transcript']
-            length = answer['length']
-            words_list = answer['words_list']
-            answerphone_words = reference_words['answerphone']
-            human_words = reference_words['human']
-            result = match_words(words_list, answerphone_words, human_words)
+            result = match_words(recognized_words, answerphone_words, human_words)
         if stage == 2:
-            answer = get_response_details(response)
-            transcript = answer['transcript']
-            length = answer['length']
-            words_list = answer['words_list']
-            positive_words = reference_words['positive']
-            negative_words = reference_words['negative']
-            result = match_words(words_list, negative_words, positive_words)
+            result = match_words(recognized_words, negative_words, positive_words)
         if result in (0, 1):
             name = str(uuid.uuid4())
             date = datetime.datetime.now().strftime("%d-%m-%Y")
@@ -150,7 +137,7 @@ def voice_analize(path_to_file, phone, record_to_db, stage, reference_words):
                     result=result,
                     phone=phone,
                     length=length,
-                    transcript=transcript,
+                    transcript=transcript
                 )
             except Exception as e:
                 print('Ошибка при записи в лог-файл')
@@ -162,21 +149,21 @@ def voice_analize(path_to_file, phone, record_to_db, stage, reference_words):
                     try:
                         # Enter your database settings in first four args
                         write_to_database(
-                            host='your_host',
-                            user_name='your_name',
-                            db_name='your_db',
-                            password='your_password',
+                            host='enter_your_host',
+                            user_name='enter_your_username',
+                            db_name='enter_your_db_name',
+                            password='enter_your_password',
                             date=date,
                             time=time,
                             result_name=name,
                             result=result,
                             phone=phone,
                             length=length,
-                            transcript=transcript,
+                            transcript=transcript
                         )
                     except Exception as e:
                         print('Ошибка при записи в базу данных')
-                        logging.error('Ошибка при записи в лог-файл', exc_info=True)
+                        logging.error('Ошибка при записи в базу данных', exc_info=True)
                     else:
                         print('Запись в базу данных - успешно!')
                         print('Удаление аудиофайла...')
