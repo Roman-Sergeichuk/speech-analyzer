@@ -1,6 +1,6 @@
 #!usr/bin/env python3
 import prompt
-from task_1.src.analysis import REFERENCE_WORDS, analyze_response
+from task_1.src.analysis import analyze_response
 
 
 def main():
@@ -18,7 +18,7 @@ def main():
             'Введите этап распознавания\n'
             '1 - автоответчик/человек, 2 - положительный/отрицательный ответ человека: '
         )
-    analyze_response(path_to_file, phone, record_to_db, stage, REFERENCE_WORDS)
+    analyze_response(path_to_file, phone, record_to_db, stage)
 
 
 if __name__ == '__main__':

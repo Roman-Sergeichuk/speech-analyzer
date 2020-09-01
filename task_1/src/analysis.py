@@ -13,14 +13,21 @@ REFERENCE_WORDS = {
     'negative': ['нет', 'не'],
 }
 
+# Enter your secret-key and api-key
+API_KEY = "enter_your_api_key"
+SECRET_KEY = "enter_your_secret_key"
+
+# Enter your database settings below
+HOST = 'enter_your_host'
+USERNAME = 'enter_your_username'
+PASSWORD = 'enter_your_password'
+DB_NAME = 'enter_your_database_name'
+TABLE_NAME = 'enter_your_table_name'
+
 
 def parse_file(path_to_file):
 
-    # Enter your secret-key and api-key
-    API_KEY = "enter_your_api_key"
-    SECRET_KEY = "enter_your_secret_key"
-
-    client = ClientSTT(API_KEY, SECRET_KEY)
+    client = ClientSTT(api_key=API_KEY, secret_key=SECRET_KEY)
 
     audio_config = {
         "encoding": "LINEAR16",
@@ -84,10 +91,6 @@ def write_to_logfile(
 
 
 def write_to_database(
-        host,
-        user_name,
-        db_name,
-        password,
         date,
         time,
         result_name,
@@ -96,18 +99,17 @@ def write_to_database(
         length,
         transcript):
     print('Запись в базу данных...')
-    conn = psycopg2.connect(host=host, user=user_name, dbname=db_name, password=password)
+
+    conn = psycopg2.connect(host=HOST, user=USERNAME, dbname=DB_NAME, password=PASSWORD)
     cursor = conn.cursor()
-    cursor.execute(
-        'insert into recordings (date, time, name, result, phone, length, transcript)'
-        'VALUES (%s, %s, %s, %s, %s, %s, %s)',
-        (date, time, result_name, result.replace(' ', ''), phone, length, transcript)
-    )
+    query = f'insert into {TABLE_NAME} (date, time, name, result, phone, length, transcript) ' \
+            f'VALUES (%s, %s, %s, %s, %s, %s, %s)'
+    cursor.execute(query, (date, time, result_name, result.replace(' ', ''), phone, length, transcript))
     conn.commit()
     print('Запись в базу данных - успешно!')
 
 
-def analyze_response(path_to_file, phone, record_to_db, stage, reference_words):
+def analyze_response(path_to_file, phone, record_to_db, stage, reference_words=REFERENCE_WORDS):
     logging.basicConfig(filename='exceptions.log', filemode='a', format='%(process)d-%(asctime)s-%(message)s')
     try:
         response = parse_file(path_to_file)
@@ -171,10 +173,6 @@ def analyze_response(path_to_file, phone, record_to_db, stage, reference_words):
         try:
             # Enter your database settings in first four args
             write_to_database(
-                host='enter_your_host',
-                user_name='enter_your_username',
-                db_name='enter_your_database_name',
-                password='enter_your_password',
                 date=date,
                 time=time,
                 result_name=name,
